@@ -22,16 +22,16 @@ Route::get('tasks', array('middleware' => 'cors', 'uses' =>'TaskController@index
 
 //Route::get('example', array('middleware' => 'cors', 'uses' => 'ExampleController@dummy'));
 //List single task
-Route::get('task/{id}', 'TaskController@show');
+Route::get('task/{id}', array('middleware' => 'cors', 'uses' =>'TaskController@show'));
 
 //create new task
-Route::post('task', 'TaskController@store');
+Route::post('task', array('middleware' => 'cors', 'uses' =>'TaskController@store'));
 
 //update a task
-Route::put('task', 'TaskController@store');
+Route::put('task', array('middleware' => 'cors', 'uses' =>'TaskController@store'));
 
 //delete task
-Route::delete('task/{id}', 'TaskController@destroy');
+Route::delete('task/{id}', array('middleware' => 'cors', 'uses' =>'TaskController@destroy'));
 
 //test route for vue
 
