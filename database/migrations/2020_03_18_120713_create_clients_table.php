@@ -17,6 +17,7 @@ class CreateClientsTable extends Migration
             $table->bigIncrements('user_id');
             $table->string('cin');
             $table->integer('phone_number');
+            $table->timestamps();
         });
     }
     /**
