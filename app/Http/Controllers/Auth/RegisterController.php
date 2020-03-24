@@ -64,11 +64,29 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+
+        $user= User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'api_token' => Str::random(80),
         ]);
+        if($data['type_user']=='worker') {
+            $worker = Worker::create([
+                'user_id' => $user->id,
+                'cin' => $data['cin'],
+                'verified' => false,
+                'phone_number' => $data['phone_number'],
+            ]);
+        }
+        else if($data['type_user']=='client'){
+            $client = Client::create([
+                'user_id' => $user->id,
+                'cin' => $data['cin'],
+                'phone_number' => $data['phone_number'],
+            ]);
+        }
+
+        return $user;
     }
 }

@@ -37,5 +37,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function admin()
+    {
+        return $this->hasOne('App\Admin');
+    }
+    public function client()
+    {
+        return $this->hasOne('App\Client');
+    }
+    public function worker()
+    {
+        return $this->hasOne('App\Worker');
+    }
+
 
 }
