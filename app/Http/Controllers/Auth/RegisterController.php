@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Client;
 use App\User;
 use App\Http\Controllers\Controller;
+use App\Worker;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -50,11 +52,13 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'firstName' => ['required', 'string', 'max:255'],
+            'lastName' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
+
 
     /**
      * Create a new user instance after a valid registration.
@@ -66,17 +70,27 @@ class RegisterController extends Controller
     {
 
         $user= User::create([
-            'name' => $data['name'],
+            'firstName' => $data['firstName'],
+            'lastName' => $data['lastName'],
             'email' => $data['email'],
+            'birth_date' => $data['birth_date'],
             'password' => Hash::make($data['password']),
             'api_token' => Str::random(80),
         ]);
+
+        $table->bigIncrements('user_id');
+        $table->string('cin');
+        $table->integer('phone_number');
+        $table->boolean('verified');
+        $table->decimal(0,5);
+
         if($data['type_user']=='worker') {
             $worker = Worker::create([
                 'user_id' => $user->id,
                 'cin' => $data['cin'],
                 'verified' => false,
                 'phone_number' => $data['phone_number'],
+                'rating'=> 0,
             ]);
         }
         else if($data['type_user']=='client'){
@@ -84,6 +98,7 @@ class RegisterController extends Controller
                 'user_id' => $user->id,
                 'cin' => $data['cin'],
                 'phone_number' => $data['phone_number'],
+                'rating'=> 0,
             ]);
         }
 

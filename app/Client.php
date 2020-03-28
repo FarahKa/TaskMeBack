@@ -10,4 +10,13 @@ class Client extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+
+    /**
+     * Get the posts of the client.
+     */
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
+    }
 }

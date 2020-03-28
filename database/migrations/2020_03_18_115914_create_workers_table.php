@@ -18,6 +18,7 @@ class CreateWorkersTable extends Migration
             $table->string('cin');
             $table->integer('phone_number');
             $table->boolean('verified');
+            $table->decimal('rating');
             $table->timestamp('worker_verified_at')->nullable();
             $table->timestamps();
         });

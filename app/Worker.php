@@ -10,4 +10,12 @@ class Worker extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    /**
+     * Get the posts he'll work on.
+     */
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
+    }
 }
