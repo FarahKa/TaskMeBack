@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Category as CategoryResource;
 
 class Task extends JsonResource
 {
@@ -21,7 +22,7 @@ class Task extends JsonResource
             'id'=> $this->id,
             'subject'=> $this->subject,
             'description'=> $this->description,
-            'categories'=>CategoryResource::collection($this-category),
+            'categories'=> new CategoryResource($this->category),
             //'posts'=>PostResource::collection($this->whenLoaded(posts)),
             'created_at' => $this->created_at,
         ];

@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Task;
-use App\Category;
 use App\Http\Resources\Task as TaskResource;
+use App\Task;
+use App\Http\Resources\Category as CategoryResource;
+use App\Category;
+use Illuminate\Http\Request;
 
-
-class TaskController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +18,9 @@ class TaskController extends Controller
     public function index()
     {
         //get all tasks, paginated
-        $tasks = Task::paginate(15);
+        $categories = Category::paginate(15);
         //return collection of tasks as a resource
-        return TaskResource::collection($tasks);
+        return CategoryResource::collection($categories);
     }
 
     /**
@@ -30,36 +29,33 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function tasks_by_category(Request $request)
+    public function category_from_task(Request $request)
     {
-        //get tasks that belong to a certain category
-        $category = Category::where('name',  $request->input('category_name'))->first();
+        //get category of a task from task id
+        $task = Task::where('id',  $request->input('task_id'))->first();
 
-        $tasks = $category->tasks();
+        $category = $task->category();
 
         //return collection of tasks as a resource
-        return TaskResource::collection($tasks);
+        return new CategoryResource($category);
     }
 
 
-
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created category in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        // USED NAME task_id FOR FORM PLZ
-        $task = $request->isMethod('put') ? Task::findOrFail($request->task_id) : new Task;
-        $task->id = $request->input('task_id');
-        $task->subject = $request->input('task_subject');
-        $task->description = $request->input('task_description');
-        $category = Category::where('name', $request->input('category_name'))->first();
-        $task->category()->associate($category);
-        if($task->save()){
-            return new TaskResource($task);
+        // USED NAME_id FOR FORM PLZ
+        $category = $request->isMethod('put') ? Category::findOrFail($request->category_id) : new Category;
+        $category->id = $request->input('category_id');
+        $category->name = $request->input('category_name');
+        $category->description = $request->input('category_description');
+        if($category->save()){
+            return new CategoryResource($category);
         }
 
     }
@@ -73,9 +69,9 @@ class TaskController extends Controller
     public function show($id)
     {
         // get a single task
-        $task = Task::findOrFail($id);
+        $category = Category::findOrFail($id);
         // return the task as a resource
-        return new TaskResource($task);
+        return new CategoryResource($category);
         // we're returning a data object
         //if you want no wrapping
         //go see app service provider comments
@@ -91,10 +87,11 @@ class TaskController extends Controller
     public function destroy($id)
     {
         //find article
-        $task = Task::findOrFail($id);
-        if($task->delete()){
-            return new TaskResource($task);
+        $category = Category::findOrFail($id);
+        if($category->delete()){
+            return new CategoryResource($category);
 
         }
     }
 }
+

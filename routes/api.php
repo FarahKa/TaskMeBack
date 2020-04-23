@@ -33,7 +33,13 @@ Route::put('task', array('middleware' => 'cors', 'uses' =>'TaskController@store'
 //delete task
 Route::delete('task/{id}', array('middleware' => 'cors', 'uses' =>'TaskController@destroy'));
 
-//test route for vue
+//list categories
+Route::get('categories', 'CategoryController@index');
+//adding a category - modifying a category
+Route::post('category', 'CategoryController@store');
+Route::put('category', 'CategoryController@store');
+
+
 
 
 
