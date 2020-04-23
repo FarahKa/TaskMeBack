@@ -34,10 +34,16 @@ Route::put('task', array('middleware' => 'cors', 'uses' =>'TaskController@store'
 Route::delete('task/{id}', array('middleware' => 'cors', 'uses' =>'TaskController@destroy'));
 
 //list categories
-Route::get('categories', 'CategoryController@index');
+Route::get('categories', array('middleware' => 'cors', 'uses' =>'CategoryController@index'));
 //adding a category - modifying a category
-Route::post('category', 'CategoryController@store');
-Route::put('category', 'CategoryController@store');
+Route::post('category', array('middleware' => 'cors', 'uses' =>'CategoryController@store'));
+Route::put('category', array('middleware' => 'cors', 'uses' =>'CategoryController@store'));
+
+//getting one category in particular using id
+Route::get('category/{id}', array('middleware' => 'cors', 'uses' =>'CategoryController@show'));
+
+//list tasks for 1 category (using the category's name)
+Route::get('tasks_by_category/{name}', array('middleware' => 'cors', 'uses' =>'TaskController@tasks_by_category'));
 
 
 

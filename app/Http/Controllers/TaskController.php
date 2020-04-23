@@ -27,15 +27,15 @@ class TaskController extends Controller
     /**
      * Getting the tasks of a certain category.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  string $name
      * @return \Illuminate\Http\Response
      */
-    public function tasks_by_category(Request $request)
+    public function tasks_by_category($name)
     {
         //get tasks that belong to a certain category
-        $category = Category::where('name',  $request->input('category_name'))->first();
+        $category = Category::where('name',  $name)->first();
 
-        $tasks = $category->tasks();
+        $tasks = $category->tasks;
 
         //return collection of tasks as a resource
         return TaskResource::collection($tasks);
