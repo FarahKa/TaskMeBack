@@ -16,16 +16,19 @@ class Task extends JsonResource
     public function toArray($request)
     {
         //return parent::toArray($request);
-        //customizing the ressource so we don't add the created at and updatedat to the json
+        //customizing the ressource
         return[
             'id'=> $this->id,
             'subject'=> $this->subject,
-            'description'=> $this->description
-
+            'description'=> $this->description,
+            'categories'=>CategoryResource::collection($this-category),
+            //'posts'=>PostResource::collection($this->whenLoaded(posts)),
+            'created_at' => $this->created_at,
         ];
     }
 
-    //add stuff to the data array i'm returning i guess
+
+   //add stuff to the data array i'm returning i guess
     public function with($request){
         return [
             'version'=> 'Sprint1',

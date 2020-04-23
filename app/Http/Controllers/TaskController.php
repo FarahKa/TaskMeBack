@@ -18,7 +18,7 @@ class TaskController extends Controller
     {
         //get tasks
         $tasks = Task::paginate(15);
-        //return collection of tasts as a resource
+        //return collection of tasks as a resource
         return TaskResource::collection($tasks);
     }
 
