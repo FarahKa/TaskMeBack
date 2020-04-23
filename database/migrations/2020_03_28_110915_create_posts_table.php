@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->integer('client_id')->unsigned();
             $table->foreign('client_id')->references('id')->on('clients');
 
-            $table->boolean('worker_found');
+            $table->boolean('worker_found')->default(0);
 
             $table->integer('worker_id')->unsigned();
             $table->foreign('worker_id')->references('id')->on('workers');
