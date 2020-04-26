@@ -46,7 +46,33 @@ Route::get('category/{id}', array('middleware' => 'cors', 'uses' =>'CategoryCont
 Route::get('tasks_by_category/{name}', array('middleware' => 'cors', 'uses' =>'TaskController@tasks_by_category'));
 
 
+//post stuff:
+//bro i didn't test these yet so it might not work but at least they're here
+//i'll test them tomorrow
+//you can check out the controllers to see the info the request expects
+Route::get('posts', array('middleware' => 'cors', 'uses' =>'PostController@index'));
+
+//list posts for 1 category (using the category's name)
+Route::get('posts_by_category/{name}', array('middleware' => 'cors', 'uses' =>'PostController@posts_by_category'));
+//list posts for 1 task(using the task's name)
+Route::get('posts_by_task/{name}', array('middleware' => 'cors', 'uses' =>'PostController@posts_by_task'));
+//list posts for 1 user(using the user's ID)
+Route::get('posts_by_user/{id}', array('middleware' => 'cors', 'uses' =>'PostController@posts_by_user'));
+//list posts for 1 country(using the country name)
+Route::get('posts_by_country/{name}', array('middleware' => 'cors', 'uses' =>'PostController@posts_by_country'));
+//list posts for 1 country(using the city name)
+Route::get('posts_by_city/{name}', array('middleware' => 'cors', 'uses' =>'PostController@posts_by_city'));
 
 
+//creating a new post
+Route::post('post', array('middleware' => 'cors', 'uses' =>'PostController@store'));
+//modifying a post (expects the same info you would use for creation
+//since the id is the same, will modify the old one
+//just has to be put  method instead of post
+Route::put('post', array('middleware' => 'cors', 'uses' =>'PostController@store'));
+//showing 1 post by id
+Route::get('post/{id}', array('middleware' => 'cors', 'uses' =>'PostController@show'));
+//deleting a post
+Route::delete('post/{id}', array('middleware' => 'cors', 'uses' =>'PostController@destroy'));
 
 

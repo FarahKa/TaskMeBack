@@ -15,10 +15,11 @@ class CreateWorkersTable extends Migration
     {
         Schema::create('workers', function (Blueprint $table) {
             $table->bigIncrements('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('cin');
             $table->integer('phone_number');
             $table->boolean('verified');
-            $table->decimal('rating');
+            $table->decimal('rating')->default(2.5);
             $table->timestamp('worker_verified_at')->nullable();
             $table->timestamps();
         });

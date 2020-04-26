@@ -15,9 +15,10 @@ class CreateClientsTable extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->bigIncrements('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('cin');
             $table->integer('phone_number');
-            $table->decimal('rating');
+            $table->decimal('rating')->default(2.5);
             $table->timestamps();
         });
     }
