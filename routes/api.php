@@ -49,8 +49,6 @@ Route::get('tasks_by_category/{name}', array('middleware' => 'cors', 'uses' =>'T
 
 
 //post stuff:
-//bro i didn't test these yet so it might not work but at least they're here
-//i'll test them tomorrow
 //you can check out the controllers to see the info the request expects
 Route::get('posts', array('middleware' => 'cors', 'uses' =>'PostController@index'));
 

@@ -24,18 +24,18 @@ class CreatePostsTable extends Migration
 
             $table->boolean('worker_found')->default(0);
 
-            $table->integer('worker_id')->unsigned();
+            $table->integer('worker_id')->unsigned()->nullable();
             $table->foreign('worker_id')->references('id')->on('workers');
 
             $table->timestamps();
             $table->timestamp('date');
-            $table->timestamp('description');
+            $table->text('description');
 
             $table->integer('address_id')->unsigned();
             $table->foreign('address_id')->references('id')->on('addresses');
 
-            $table->text('issues');
-            $table->boolean('state');
+            $table->text('issues')->nullable();
+            $table->boolean('state')->default(false);
         });
     }
 

@@ -8,7 +8,7 @@ class Post extends Model
 {
     public function address()
     {
-        return $this->hasOne('App\Address');
+        return $this->belongsTo('App\Address');
     }
 
     /**
