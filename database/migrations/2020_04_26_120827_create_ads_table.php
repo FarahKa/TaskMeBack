@@ -25,7 +25,7 @@ class CreateAdsTable extends Migration
             $table->foreign('worker_id')->references('id')->on('workers');
 
             $table->timestamps();
-            $table->timestamp('date');
+            $table->timestamp('date')->nullable();
             $table->text('description');
 
             $table->unsignedBigInteger('address_id');
