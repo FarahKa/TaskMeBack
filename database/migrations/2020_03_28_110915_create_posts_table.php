@@ -19,19 +19,19 @@ class CreatePostsTable extends Migration
             $table->integer('task_id')->unsigned();
             $table->foreign('task_id')->references('id')->on('tasks');
 
-            $table->integer('client_id')->unsigned();
+            $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')->references('id')->on('clients');
 
             $table->boolean('worker_found')->default(0);
 
-            $table->integer('worker_id')->unsigned()->nullable();
+            $table->unsignedBigInteger('worker_id')->nullable();
             $table->foreign('worker_id')->references('id')->on('workers');
 
             $table->timestamps();
             $table->timestamp('date');
             $table->text('description');
 
-            $table->integer('address_id')->unsigned();
+            $table->unsignedBigInteger('address_id');
             $table->foreign('address_id')->references('id')->on('addresses');
 
             $table->text('issues')->nullable();

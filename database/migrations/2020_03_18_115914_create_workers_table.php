@@ -14,7 +14,7 @@ class CreateWorkersTable extends Migration
     public function up()
     {
         Schema::create('workers', function (Blueprint $table) {
-            $table->bigIncrements('user_id');
+            $table->unsignedBigInteger('user_id')->primary();
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('cin');
             $table->integer('phone_number');
