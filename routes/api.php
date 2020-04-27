@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('register', array('middleware' => 'cors', 'uses' =>'Auth\RegisterController@create'));
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

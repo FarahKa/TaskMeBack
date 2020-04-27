@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'firstname', 'lastname', 'birth_date', 'photo_link', 'email', 'password',
     ];
 
     /**
@@ -35,6 +35,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'birth_date' => 'datetime',
     ];
 
     public function admin()

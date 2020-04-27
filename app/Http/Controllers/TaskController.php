@@ -14,7 +14,7 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
@@ -28,7 +28,7 @@ class TaskController extends Controller
      * Getting the tasks of a certain category.
      *
      * @param  string $name
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function tasks_by_category($name)
     {
@@ -47,7 +47,7 @@ class TaskController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return TaskResource
      */
     public function store(Request $request)
     {
@@ -68,7 +68,7 @@ class TaskController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return TaskResource
      */
     public function show($id)
     {
@@ -86,7 +86,7 @@ class TaskController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return TaskResource
      */
     public function destroy($id)
     {

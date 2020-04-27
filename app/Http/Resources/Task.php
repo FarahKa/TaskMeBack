@@ -28,6 +28,7 @@ class Task extends JsonResource
         ];
     }
 
+    /*
 
    //add stuff to the data array i'm returning i guess
     public function with($request){
@@ -37,4 +38,5 @@ class Task extends JsonResource
             'mybro' => 'it doesnt rlly do anything'
         ];
     }
+    */
 }

@@ -6,10 +6,12 @@ use App\Client;
 use App\User;
 use App\Http\Controllers\Controller;
 use App\Worker;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Str;
+use App\Http\Resources\User as UserResource;
 
 class RegisterController extends Controller
 {
@@ -63,26 +65,23 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
-     * @return \App\User
+     * @param  Request  $data
+     * @return \App\Http\Resources\User
      */
-    protected function create(array $data)
+    protected function create(Request $data)
     {
+        //$data=$request->all();
 
         $user= User::create([
-            'firstName' => $data['firstName'],
-            'lastName' => $data['lastName'],
+            'firstname' => $data['firstname'],
+            'lastname' => $data['lastname'],
             'email' => $data['email'],
             'birth_date' => $data['birth_date'],
             'password' => Hash::make($data['password']),
+            'photo_link' => $data['photo_link'],
             'api_token' => Str::random(80),
         ]);
 
-        $table->bigIncrements('user_id');
-        $table->string('cin');
-        $table->integer('phone_number');
-        $table->boolean('verified');
-        $table->decimal(0,5);
 
         if($data['type_user']=='worker') {
             $worker = Worker::create([
@@ -90,18 +89,20 @@ class RegisterController extends Controller
                 'cin' => $data['cin'],
                 'verified' => false,
                 'phone_number' => $data['phone_number'],
-                'rating'=> 0,
+                'rating'=> 2.5,
             ]);
+
         }
+
         else if($data['type_user']=='client'){
             $client = Client::create([
                 'user_id' => $user->id,
                 'cin' => $data['cin'],
                 'phone_number' => $data['phone_number'],
-                'rating'=> 0,
+                'rating'=> 2.5,
             ]);
-        }
 
-        return $user;
+        }
+        return new UserResource($user);
     }
 }
