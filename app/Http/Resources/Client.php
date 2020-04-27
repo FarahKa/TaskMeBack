@@ -20,6 +20,7 @@ class Client extends JsonResource
             'cin'=> $this->cin,
             'phone_number'=> $this->phone_number,
             'created_at' => $this->created_at,
+            'rating'=>$this->rating,
         ];
     }
 }

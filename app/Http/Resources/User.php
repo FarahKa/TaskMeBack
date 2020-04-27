@@ -30,6 +30,7 @@ class User extends JsonResource
             'birth_date'=>$this->birth_date,
             'photo_link'=>$this->photo_link,
             'child'=>$child,
+            'email_verified_at' => $this->email_verified_at,
         ];
     }
 }

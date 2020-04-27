@@ -12,7 +12,7 @@ class Client extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'cin', 'phone_number'
+        'user_id', 'cin', 'phone_number', 'rating'
     ];
 
     public function user()
