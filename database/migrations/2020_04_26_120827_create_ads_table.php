@@ -17,12 +17,12 @@ class CreateAdsTable extends Migration
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('client_id');
-            $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('client_id')->references('user_id')->on('clients');
 
             $table->boolean('worker_found')->default(0);
 
             $table->unsignedBigInteger('worker_id')->nullable();
-            $table->foreign('worker_id')->references('id')->on('workers');
+            $table->foreign('worker_id')->references('user_id')->on('workers');
 
             $table->timestamps();
             $table->timestamp('date')->nullable();
