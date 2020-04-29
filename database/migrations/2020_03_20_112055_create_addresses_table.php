@@ -17,9 +17,9 @@ class CreateAddressesTable extends Migration
             $table->bigIncrements('id');
             $table->string('country');
             $table->string('city');
-            $table->integer('postal_code');
-            $table->string('street');
-            $table->integer('house_number');
+            $table->integer('postal_code')->nullable();
+            $table->string('street')->nullable();
+            $table->integer('house_number')->nullable();
             $table->timestamps();
         });
     }
