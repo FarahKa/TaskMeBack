@@ -31,8 +31,8 @@ class CreatePostsTable extends Migration
             $table->timestamp('date')->nullable();
             $table->text('description');
 
-            $table->unsignedBigInteger('address_id');
-            $table->foreign('address_id')->references('id')->on('addresses');
+          /*  $table->unsignedBigInteger('address_id');
+            $table->foreign('address_id')->references('id')->on('addresses');*/
 
             $table->text('issues')->nullable();
             $table->boolean('state')->default(false);

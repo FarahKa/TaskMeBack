@@ -54,9 +54,9 @@ class TaskController extends Controller
         // USED NAME task_id FOR FORM PLZ
         $task = $request->isMethod('put') ? Task::findOrFail($request->task_id) : new Task;
         $task->id = $request->input('task_id');
-        $task->subject = $request->input('task_subject');
-        $task->description = $request->input('task_description');
-        $category = Category::where('name', $request->input('category_name'))->first();
+        $task->subject = $request->json('task_subject');
+        $task->description = $request->json('task_description');
+        $category = Category::where('name', $request->json('category_name'))->first();
         $task->category()->associate($category);
         if($task->save()){
             return new TaskResource($task);
