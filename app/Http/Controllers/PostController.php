@@ -122,18 +122,16 @@ class PostController extends Controller
         // USED NAME post_id FOR FORM PLZ
         $post = $request->isMethod('put') ? Post::findOrFail($request->post_id) : new Post;
         $post->id = $request->input('post_id');
-        $post->task_id = $request->json('task_id');
-        $post->client_id = $request->json('client_id');
-        $post->date=$request->json('date');
-        $post->description = $request->json('description');
-
+        $post->task_id = $request->input('task_id');
+        $post->client_id = $request->input('client_id');
+        $post->date=$request->input('date');
+        $post->description = $request->input('description');
         $address=$request->isMethod('put') ? $post->address : new Address;
-
-        $address->country= $request->json('country');
-        $address->city= $request->json('city');
-        $address->postal_code= $request->json('postal_code');
-        $address->street= $request->json('street');
-        $address->house_number= $request->json('house_number');
+        $address->country= $request->input('country');
+        $address->city= $request->input('city');
+        $address->postal_code= $request->input('postal_code');
+        $address->street= $request->input('street');
+        $address->house_number= $request->input('house_number');
         $address->save();
         $post->address()->associate($address);
         if($post->save()){

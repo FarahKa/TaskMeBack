@@ -52,8 +52,8 @@ class CategoryController extends Controller
         // USED NAME_id FOR FORM PLZ
         $category = $request->isMethod('put') ? Category::findOrFail($request->category_id) : new Category;
         $category->id = $request->input('category_id');
-        $category->name = $request->json('category_name');
-        $category->description = $request->json('category_description');
+        $category->name = $request->input('category_name');
+        $category->description = $request->input('category_description');
         if($category->save()){
             return new CategoryResource($category);
         }
