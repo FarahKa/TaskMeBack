@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+//use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -40,15 +41,15 @@ class User extends Authenticatable
 
     public function admin()
     {
-        return $this->hasOne('App\Admin');
+        return $this->belongsTo('App\Admin');
     }
     public function client()
     {
-        return $this->hasOne('App\Client');
+        return $this->belongsTo('App\Client');
     }
     public function worker()
     {
-        return $this->hasOne('App\Worker');
+        return $this->belongsTo('App\Worker');
     }
 
 

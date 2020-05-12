@@ -17,20 +17,24 @@ class User extends JsonResource
     {
         //return parent::toArray($request);
         if($this->client){
+            $user_type='client';
             $child=new ClientResource($this->client);
         }
         else if($this->worker){
+            $user_type='worker';
             $child=new WorkerResource($this->worker);
         }
 
         return[
+            'user_type'=>$user_type,
             'firstname'=> $this->firstname,
             'lastname'=> $this->lastname,
             'email'=> $this->email,
             'birth_date'=>$this->birth_date,
             'photo_link'=>$this->photo_link,
-            'child'=>$child,
             'email_verified_at' => $this->email_verified_at,
+            'info'=>$child,
+
         ];
     }
 }
