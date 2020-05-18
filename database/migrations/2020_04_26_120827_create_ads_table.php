@@ -31,8 +31,8 @@ class CreateAdsTable extends Migration
             $table->unsignedBigInteger('address_id');
             $table->foreign('address_id')->references('id')->on('addresses');
 
-            $table->text('issues');
-            $table->boolean('state');
+            $table->text('issues')->nullable();
+            $table->boolean('state')->default(false);
         });
     }
 

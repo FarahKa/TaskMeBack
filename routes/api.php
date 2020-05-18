@@ -16,10 +16,13 @@ use Illuminate\Support\Facades\Auth;
 
 
 Auth::routes();
-//Route::post('register', 'Auth\RegisterController@create');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//list all workers:
+Route::get('workers', array('middleware' => 'cors', 'uses' =>'WorkerController@index'));
 
 //List tasks - USES CORS MIDDLEWARE
 Route::get('tasks', array('middleware' => 'cors', 'uses' =>'TaskController@index'));
@@ -70,7 +73,7 @@ Route::get('posts_by_city/{name}', array('middleware' => 'cors', 'uses' =>'PostC
 Route::post('post', array('middleware' => 'cors', 'uses' =>'PostController@store'));
 //modifying a post (expects the same info you would use for creation
 //since the id is the same, will modify the old one
-//just has to be put  method instead of post
+//just has to be put  method instead of post method
 Route::put('post', array('middleware' => 'cors', 'uses' =>'PostController@store'));
 //showing 1 post by id
 Route::get('post/{id}', array('middleware' => 'cors', 'uses' =>'PostController@show'));
@@ -78,3 +81,20 @@ Route::get('post/{id}', array('middleware' => 'cors', 'uses' =>'PostController@s
 Route::delete('post/{id}', array('middleware' => 'cors', 'uses' =>'PostController@destroy'));
 
 
+//Ad stuff:
+//listing all ads:
+Route::get('ads', array('middleware' => 'cors', 'uses' =>'AdController@index'));
+//creating an ad:
+Route::post('ad', array('middleware' => 'cors', 'uses' =>'AdController@store'));
+//modifying an ad:
+Route::put('ad', array('middleware' => 'cors', 'uses' =>'AdController@store'));
+//ads by user:
+Route::get('ads_by_user/{id}', array('middleware' => 'cors', 'uses' =>'AdController@ads_by_user'));
+//showing 1 ad by id
+Route::get('ad/{id}', array('middleware' => 'cors', 'uses' =>'AdController@show'));
+//deleting an ad
+Route::delete('ad/{id}', array('middleware' => 'cors', 'uses' =>'AdController@destroy'));
+//list ads for 1 country(using the country name)
+Route::get('ads_by_country/{name}', array('middleware' => 'cors', 'uses' =>'AdController@ads_by_country'));
+//list ads for 1 country(using the city name)
+Route::get('ads_by_city/{name}', array('middleware' => 'cors', 'uses' =>'AdController@ads_by_city'));

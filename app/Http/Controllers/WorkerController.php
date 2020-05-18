@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\Worker as WorkerResource;
+use App\Http\Resources\User as UserResource;
+use App\User;
 use App\Worker;
 use Illuminate\Http\Request;
 
@@ -11,38 +13,19 @@ class WorkerController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
         //get all workers
-        $workers = Worker::paginate(15);
+        $workers = User::join('workers', 'users.id', '=', 'workers.user_id' );
         //return collection of workers as a resource
-        return WorkerResource::collection($workers);
+        return UserResource::collection($workers);
     }
 
 
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        // USED NAME worker_id FOR FORM PLZ
-        $user = $request->isMethod('put') ? User::findOrFail($request->user_id) : new User;
 
-        $worker->id = $request->input('worker_id');
-        $worker->subject = $request->input('task_subject');
-        $task->description = $request->input('task_description');
-
-        if($task->save()){
-            return new TaskResource($task);
-        }
-
-    }
 
     /**
      * Display the specified resource.
