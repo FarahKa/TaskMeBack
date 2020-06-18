@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\Task as TaskResource;
-use App\Task;
 use App\Http\Resources\Category as CategoryResource;
+use App\Task;
+use App\Http\Resources\Worker as WorkerResource;
+use App\Worker;
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return AnonymousResourceCollection
      */
     public function index()
     {
@@ -93,5 +95,41 @@ class CategoryController extends Controller
 
         }
     }
+
+    /**
+     * Getting the users by category, takes a category's name.
+     *
+     * @param  string $name
+     * @return AnonymousResourceCollection
+     */
+    public function worker_by_category($name)
+    {
+        $category = category::where('name', $name)->first();
+
+
+        $workers = $category->workers;
+
+        //return collection of tasks as a resource
+        return WorkerResource::collection($workers);
+    }
+
+    /**
+     * Getting the users by category, takes a category's name.
+     *
+     * @param  string $id
+     * @return AnonymousResourceCollection
+     */
+    public function category_by_worker($id)
+    {
+        $worker = worker::where('id', $id)->first();
+
+
+        $categories = $worker->categories;
+
+        return CategoryResource::collection($categories);
+    }
+
+
+
 }
 

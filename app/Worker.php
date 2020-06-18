@@ -28,4 +28,12 @@ class Worker extends Model
     {
         return $this->hasMany('App\Post');
     }
+
+    /**
+     * Get the categories = skills.
+     */
+    public function categories()
+    {
+        return $this->hasMany('App\Category');
+    }
 }

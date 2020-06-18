@@ -13,4 +13,12 @@ class Category extends Model
     {
         return $this->hasMany('App\Task');
     }
+
+    /**
+     * Get the workers for the category.
+     */
+    public function workers()
+    {
+        return $this->hasMany('App\Worker');
+    }
 }
