@@ -8,13 +8,15 @@ use App\Address;
 use App\Post;
 use App\Task;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return AnonymousResourceCollection
      */
     public function index()
     {
@@ -28,7 +30,7 @@ class PostController extends Controller
      * Getting the posts of a certain category.
      *
      * @param  string $name
-     * @return \Illuminate\Http\Response
+     * @return AnonymousResourceCollection
      */
     public function posts_by_category($name)
     {
@@ -45,7 +47,7 @@ class PostController extends Controller
      * Getting the posts of a certain task.
      *
      * @param  string $name
-     * @return \Illuminate\Http\Response
+     * @return AnonymousResourceCollection
      */
     public function posts_by_task($name)
     {
@@ -61,7 +63,7 @@ class PostController extends Controller
     /**
      * Getting posts of a certain user
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return AnonymousResourceCollection
      */
     public function posts_by_user($id)
     {
@@ -80,7 +82,7 @@ class PostController extends Controller
      * Getting the posts of a country.
      *
      * @param  string $name
-     * @return \Illuminate\Http\Response
+     * @return AnonymousResourceCollection
      */
     public function posts_by_country($name)
     {
@@ -98,7 +100,7 @@ class PostController extends Controller
      * Getting the posts of a city.
      *
      * @param  string $name
-     * @return \Illuminate\Http\Response
+     * @return AnonymousResourceCollection
      */
     public function posts_by_city($name)
     {

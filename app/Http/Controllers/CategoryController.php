@@ -13,7 +13,7 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
@@ -26,8 +26,8 @@ class CategoryController extends Controller
     /**
      * Getting the tasks of a certain category.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return CategoryResource
      */
     public function category_from_task(Request $request)
     {
@@ -44,8 +44,8 @@ class CategoryController extends Controller
     /**
      * Store a newly created category in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return CategoryResource
      */
     public function store(Request $request)
     {
@@ -64,7 +64,7 @@ class CategoryController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return CategoryResource
      */
     public function show($id)
     {
@@ -82,7 +82,7 @@ class CategoryController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return CategoryResource
      */
     public function destroy($id)
     {

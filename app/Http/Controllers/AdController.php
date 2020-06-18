@@ -7,13 +7,14 @@ use App\User;
 use App\Http\Resources\Ad as AdResource;
 use App\Address;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class AdController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return AnonymousResourceCollection
      */
     public function index()
     {
@@ -28,7 +29,7 @@ class AdController extends Controller
     /**
      * Getting ads of a certain user
      * @param int $id
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return AnonymousResourceCollection
      */
     public function ads_by_user($id)
     {
@@ -42,12 +43,12 @@ class AdController extends Controller
         }
         return AdResource::collection($ads);
     }
-    //post by country
+    //ads by country
     /**
      * Getting the ads of a country.
      *
      * @param  string $name
-     * @return \Illuminate\Http\Response
+     * @return AnonymousResourceCollection
      */
     public function ads_by_country($name)
     {
@@ -65,7 +66,7 @@ class AdController extends Controller
      * Getting the ads of a city.
      *
      * @param  string $name
-     * @return \Illuminate\Http\Response
+     * @return AnonymousResourceCollection
      */
     public function ads_by_city($name)
     {
@@ -81,7 +82,7 @@ class AdController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return AdResource
      */
     public function store(Request $request)

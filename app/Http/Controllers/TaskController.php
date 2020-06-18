@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Task;
 use App\Category;
 use App\Http\Resources\Task as TaskResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 
 class TaskController extends Controller
@@ -14,7 +15,7 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return AnonymousResourceCollection
      */
     public function index()
     {
@@ -28,7 +29,7 @@ class TaskController extends Controller
      * Getting the tasks of a certain category.
      *
      * @param  string $name
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return AnonymousResourceCollection
      */
     public function tasks_by_category($name)
     {
@@ -46,7 +47,7 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return TaskResource
      */
     public function store(Request $request)
