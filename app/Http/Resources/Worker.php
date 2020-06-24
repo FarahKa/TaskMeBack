@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Category as CategoryResource;
 
 class Worker extends JsonResource
 {
@@ -15,6 +16,7 @@ class Worker extends JsonResource
 
     public function toArray($request)
     {
+        $skills= CategoryResource::collection($this->categories);
         return[
             'user_id'=> $this->user_id,
             'cin'=> $this->cin,
@@ -22,6 +24,7 @@ class Worker extends JsonResource
             'created_at' => $this->created_at,
             'verified' => $this->verified,
             'rating'=>$this->rating,
+            'skills'=>$skills,
         ];
     }
 }

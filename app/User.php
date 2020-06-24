@@ -41,15 +41,15 @@ class User extends Authenticatable
 
     public function admin()
     {
-        return $this->belongsTo('App\Admin');
+        return $this->belongsTo('App\Admin', 'id', 'user_id');
     }
     public function client()
     {
-        return $this->belongsTo('App\Client');
+        return $this->belongsTo('App\Client', 'id', 'user_id');
     }
     public function worker()
     {
-        return $this->belongsTo('App\Worker');
+        return $this->belongsTo('App\Worker', 'id', 'user_id');
     }
 
 

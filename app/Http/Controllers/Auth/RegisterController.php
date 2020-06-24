@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Category;
 use App\Client;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -99,6 +100,10 @@ class RegisterController extends Controller
             $worker->verified= false;
             $worker->phone_number=$data['phone_number'];
             $worker->rating=2.5;
+            foreach($data['skills'] as $skill){
+                $category=Category::firstWhere('name', $skill );
+                $worker->categories()->create($category);
+            }
             /*
             $worker = Worker::create([
                 'user_id' => $user->id,

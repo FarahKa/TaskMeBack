@@ -17,7 +17,7 @@ class Client extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'user_id', 'id');
     }
 
 
@@ -26,6 +26,6 @@ class Client extends Model
      */
     public function posts()
     {
-        return $this->hasMany('App\Post');
+        return $this->hasMany('App\Post', 'user_id', 'client_id');
     }
 }

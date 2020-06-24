@@ -19,7 +19,7 @@ class AdController extends Controller
     public function index()
     {
         //get all ads, paginated
-        $ads = Ad::paginate(15);
+        $ads = Ad::paginate(5);
         //return collection of ads as a resource
         return AdResource::collection($ads);
     }
@@ -36,10 +36,10 @@ class AdController extends Controller
         $user=User::find($id);
         if($user->client)
         {
-            $ads=$user->client->ads;
+            $ads=$user->client->ads->paginate(5);;
         }
         else{
-            $ads=$user->worker->ads;
+            $ads=$user->worker->ads->paginate(5);;
         }
         return AdResource::collection($ads);
     }
@@ -55,7 +55,7 @@ class AdController extends Controller
         //get tasks that belong to a certain category
         $address = address::where('country',  $name)->first();
 
-        $ads = $address->ads;
+        $ads = $address->ads->paginate(5);;
 
         //return collection of tasks as a resource
         return AdResource::collection($ads);
@@ -73,7 +73,7 @@ class AdController extends Controller
         //get tasks that belong to a certain category
         $address = address::where('city',  $name)->first();
 
-        $ads = $address->ads;
+        $ads = $address->ads->paginate(5);;
 
         //return collection of tasks as a resource
         return AdResource::collection($ads);

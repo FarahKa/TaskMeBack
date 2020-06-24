@@ -8,7 +8,7 @@ class Post extends Model
 {
     public function address()
     {
-        return $this->belongsTo('App\Address');
+        return $this->belongsTo('App\Address', 'address_id', 'id');
     }
 
     /**
@@ -16,14 +16,14 @@ class Post extends Model
      */
     public function client()
     {
-        return $this->belongsTo('App\Client');
+        return $this->belongsTo('App\Client', 'client_id', 'user_id');
     }
     /**
      * Get the worker of the task.
      */
     public function worker()
     {
-        return $this->belongsTo('App\Worker');
+        return $this->belongsTo('App\Worker', 'worker_id', 'user_id');
     }
     /**
      * Get the task of the post.

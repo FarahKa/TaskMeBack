@@ -18,7 +18,7 @@ class Worker extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'user_id', 'id');
     }
 
     /**
@@ -26,7 +26,7 @@ class Worker extends Model
      */
     public function posts()
     {
-        return $this->hasMany('App\Post');
+        return $this->hasMany('App\Post', 'user_id', 'worker_id');
     }
 
     /**
@@ -34,6 +34,6 @@ class Worker extends Model
      */
     public function categories()
     {
-        return $this->hasMany('App\Category');
+        return $this->hasMany('App\Category', 'user_id', 'id');
     }
 }

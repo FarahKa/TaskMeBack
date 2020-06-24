@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Client;
 use App\Http\Resources\Post as PostResource;
 use App\Address;
 use App\Post;
 use App\Task;
+
+use App\User;
+use App\Worker;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
@@ -21,7 +25,7 @@ class PostController extends Controller
     public function index()
     {
         //get all tasks, paginated
-        $posts = Post::paginate(15);
+        $posts = Post::paginate(5);
         //return collection of tasks as a resource
         return PostResource::collection($posts);
     }
@@ -37,7 +41,7 @@ class PostController extends Controller
         //get posts that belong to a certain category
         $category = Category::where('name',  $name)->first();
 
-        $posts = $category->tasks->posts;
+        $posts = $category->tasks->posts->paginate(5);
 
         //return collection of posts as a resource
         return PostResource::collection($posts);
@@ -54,7 +58,7 @@ class PostController extends Controller
         //get tasks that belong to a certain category
         $task = Task::where('name',  $name)->first();
 
-        $posts = $task->posts;
+        $posts = $task->posts->paginate(5);;
 
         //return collection of tasks as a resource
         return PostResource::collection($posts);
@@ -67,13 +71,39 @@ class PostController extends Controller
      */
     public function posts_by_user($id)
     {
-        $user=User::find($id);
+        $user=User::where('id', $id)->first();
+
+        /*var_dump($user->worker); var_dump($user->client);
+        var_dump($user);die();
+
+        if($worker= Worker::firstWhere('user_id', $id)){
+
+            $posts = $worker->posts;
+            var_dump($posts);
+        } else if ($client= Client::firstWhere('user_id', $id)){
+            $posts = $client->posts;
+        } else {
+         die("problem here");
+            $posts=[];
+        }
+
+        */
         if($user->client)
         {
-            $posts=$user->client->posts;
+            if($user->client->posts) {
+                $posts = $user->client->posts;
+            }
+            else{
+                $posts=[];
+            }
         }
-        else{
-            $posts=$user->worker->posts;
+        else if ($user->worker) {
+            if($user->worker->posts) {
+                var_dump($user->worker->posts);
+                $posts = $user->worker->posts;
+            } else {
+                $posts=[];
+            }
         }
         return PostResource::collection($posts);
     }
@@ -89,7 +119,7 @@ class PostController extends Controller
         //get tasks that belong to a certain category
         $address = address::where('country',  $name)->first();
 
-        $posts = $address->posts;
+        $posts = $address->posts->paginate(5);;
 
         //return collection of tasks as a resource
         return PostResource::collection($posts);
@@ -107,7 +137,7 @@ class PostController extends Controller
         //get tasks that belong to a certain category
         $address = address::where('city',  $name)->first();
 
-        $posts = $address->posts;
+        $posts = $address->posts->paginate(5);;
 
         //return collection of tasks as a resource
         return PostResource::collection($posts);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\Worker as WorkerResource;
 use App\Http\Resources\User as UserResource;
 use App\User;
+use Illuminate\Support\Facades\DB;
 use App\Worker;
 use Illuminate\Http\Request;
 
@@ -18,9 +19,12 @@ class WorkerController extends Controller
     public function index()
     {
         //get all workers
-        $workers = User::join('workers', 'users.id', '=', 'workers.user_id' );
+        //$workers = User::join('workers', 'users.id', '=', 'workers.user_id' )->get();
+        $workers= DB::table('users')
+            ->join('workers','users.id','=','workers.user_id')->get();
+
         //return collection of workers as a resource
-        return UserResource::collection($workers);
+        return $workers;
     }
 
 
@@ -35,13 +39,7 @@ class WorkerController extends Controller
      */
     public function show($id)
     {
-        // get a single article
-        $task = Task::findOrFail($id);
-        // return the tast ad a resource
-        return new TaskResource($task);
-        // we're returning a data object
-        //if you want no wrapping
-        //gosee app service provider comments
+        // not yet
     }
 
 
@@ -53,10 +51,9 @@ class WorkerController extends Controller
      */
     public function destroy($id)
     {
-        //find article
-        $task = Task::findOrFail($id);
-        if($task->delete()){
-            return new TaskResource($task);
+        $user = User::findOrFail($id);
+        if($user->delete()){
+            return new UserResource($user);
 
         }
     }
