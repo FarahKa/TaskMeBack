@@ -18,8 +18,6 @@ class CreateClientsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('cin');
             $table->integer('phone_number');
-            $table->string('country');
-            $table->string('gender');
             $table->decimal('rating')->default(2.5);
             $table->timestamps();
         });

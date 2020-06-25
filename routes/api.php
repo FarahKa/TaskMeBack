@@ -17,9 +17,13 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
+
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+//adding a skill to a connected worker:
+Route::get('addskill/{name}', array('middleware' => 'cors', 'uses' =>'WorkerController@addSkill'));
 
 //list all workers:
 Route::get('workers', array('middleware' => 'cors', 'uses' =>'WorkerController@index'));

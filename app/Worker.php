@@ -42,6 +42,6 @@ class Worker extends Model
      */
     public function categories()
     {
-        return $this->hasMany('App\Category', 'user_id', 'id');
+        return $this->belongsToMany('App\Category', 'category_worker', "worker_id", "category_id");
     }
 }

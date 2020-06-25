@@ -19,6 +19,6 @@ class Category extends Model
      */
     public function workers()
     {
-        return $this->hasMany('App\Worker');
+        return $this->belongsToMany('App\Worker', 'category_worker', "category_id", "worker_id");
     }
 }

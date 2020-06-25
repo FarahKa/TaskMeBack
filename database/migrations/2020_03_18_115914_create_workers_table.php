@@ -20,8 +20,6 @@ class CreateWorkersTable extends Migration
             $table->integer('phone_number');
             $table->boolean('verified')->default(false);
             $table->decimal('rating')->default(2.5);
-            $table->string('country');
-            $table->string('gender');
             $table->timestamp('worker_verified_at')->nullable();
             $table->timestamps();
         });

@@ -80,6 +80,8 @@ class RegisterController extends Controller
         $user->birth_date=$data['birth_date'];
         $user->password=Hash::make($data['password']);
         $user->photo_link=$data['photo_link'];
+        $user->gender=$data['gender'];
+        $user->country=$data['country'];
         $user->api_token=Str::random(80);
         $user->save();
 
@@ -100,11 +102,11 @@ class RegisterController extends Controller
             $worker->verified= false;
             $worker->phone_number=$data['phone_number'];
             $worker->rating=2.5;
-            if($data["skills"]){
+            if($data['skills']){
                 foreach($data['skills'] as $skill){
-                    $categoryModels[] = Category::firstWhere('name', $skill );
+                    $category=Category::firstWhere('name', $skill );
+                    $worker->categories()->attach($category->id);
                 }
-                $worker->categories()->createMany($categoryModels);
             }
 
             /*

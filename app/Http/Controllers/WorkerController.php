@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Resources\Worker as WorkerResource;
 use App\Http\Resources\User as UserResource;
+use App\Http\Resources\Category as CategoryResource;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use App\Worker;
@@ -27,6 +29,20 @@ class WorkerController extends Controller
         return $workers;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @param $name
+     * @return CategoryResource
+     */
+    public function addSkill($name)
+    {
+        $skill= Category::where('name', $name);
+        $user= auth()->user();
+        $user->categories->create($skill);
+        return new CategoryResource($skill);
+
+    }
 
 
 
