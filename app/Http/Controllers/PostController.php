@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 
+use Illuminate\Support\Facades\DB;
+
 class PostController extends Controller
 {
     /**
@@ -40,10 +42,8 @@ class PostController extends Controller
     {
         //get posts that belong to a certain category
         $category = Category::where('name',  $name)->first();
-
-        $posts = $category->tasks->posts->paginate(5);
-
-        //return collection of posts as a resource
+        $tasks = $category->tasks;
+        $posts= $tasks->load('posts');
         return PostResource::collection($posts);
     }
 
@@ -56,9 +56,9 @@ class PostController extends Controller
     public function posts_by_task($name)
     {
         //get tasks that belong to a certain category
-        $task = Task::where('name',  $name)->first();
+        $task = Task::where('subject',  $name)->first();
 
-        $posts = $task->posts->paginate(5);;
+        $posts = $task->posts;
 
         //return collection of tasks as a resource
         return PostResource::collection($posts);
@@ -100,12 +100,9 @@ class PostController extends Controller
      */
     public function posts_by_country($name)
     {
-        //get tasks that belong to a certain category
-        $address = address::where('country',  $name)->first();
 
-        $posts = $address->posts->paginate(5);;
-
-        //return collection of tasks as a resource
+        $address = address::where('country',  $name)->get();
+        $posts = $address->load('post');
         return PostResource::collection($posts);
     }
 
@@ -118,12 +115,8 @@ class PostController extends Controller
      */
     public function posts_by_city($name)
     {
-        //get tasks that belong to a certain category
-        $address = address::where('city',  $name)->first();
-
-        $posts = $address->posts->paginate(5);;
-
-        //return collection of tasks as a resource
+        $address = address::where('city',  $name)->get();
+        $posts = $address->load('post');
         return PostResource::collection($posts);
     }
 
@@ -164,13 +157,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        // get a single task
         $post = Post::findOrFail($id);
-        // return the task as a resource
         return new PostResource($post);
-        // we're returning a data object
-        //if you want no wrapping -- I took off the wrapping but i have no idea where the wrapping stuff is written
-        //go see app service provider comments
     }
 
     /**

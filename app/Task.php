@@ -18,7 +18,8 @@ class Task extends Model
      */
     public function posts()
     {
-        return $this->hasMany('App\post');
+        return $this->hasMany('App\Post');
+    //, 'task_id', 'id'
     }
 
 }

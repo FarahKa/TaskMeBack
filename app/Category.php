@@ -11,7 +11,7 @@ class Category extends Model
      */
     public function tasks()
     {
-        return $this->hasMany('App\Task');
+        return $this->hasMany('App\Task', 'category_id', 'id');
     }
 
     /**

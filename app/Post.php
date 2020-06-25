@@ -23,7 +23,8 @@ class Post extends Model
      */
     public function worker()
     {
-        return $this->belongsTo('App\Worker', 'worker_id', 'user_id');
+        return $this->belongsTo('App\Worker');
+        //, 'worker_id', 'user_id'
     }
     /**
      * Get the task of the post.
@@ -31,6 +32,7 @@ class Post extends Model
     public function task()
     {
         return $this->belongsTo('App\Task');
+        //, 'id', 'task_id'
     }
 
 
