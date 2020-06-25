@@ -13,12 +13,13 @@ class Address extends Model
     {
         return $this->belongsTo('App\Post');
     }
-
     /**
      * Get the ad.
      */
-    public function Ad()
+    public function ad()
     {
-        return $this->hasOne('App\Ad');
+        return $this->belongsTo('App\Ad');
     }
+
+
 }

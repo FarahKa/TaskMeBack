@@ -29,6 +29,13 @@ class Worker extends Model
     {
         return $this->hasMany('App\Post', 'worker_id', 'user_id');
     }
+    /**
+     * Get the ads he'll work on.
+     */
+    public function ads()
+    {
+        return $this->hasMany('App\Ad', 'worker_id', 'user_id');
+    }
 
     /**
      * Get the categories = skills.

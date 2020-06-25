@@ -29,4 +29,11 @@ class Client extends Model
     {
         return $this->hasMany('App\Post', 'client_id', 'user_id');
     }
+    /**
+     * Get the ads of the client.
+     */
+    public function ads()
+    {
+        return $this->hasMany('App\Ad', 'worker_id', 'user_id');
+    }
 }

@@ -20,7 +20,6 @@ class AdController extends Controller
     {
         //get all ads, paginated
         $ads = Ad::paginate(5);
-        //return collection of ads as a resource
         return AdResource::collection($ads);
     }
 
@@ -36,10 +35,10 @@ class AdController extends Controller
         $user=User::find($id);
         if($user->client)
         {
-            $ads=$user->client->ads->paginate(5);;
+            $ads=$user->client->ads;
         }
         else{
-            $ads=$user->worker->ads->paginate(5);;
+            $ads=$user->worker->ads;
         }
         return AdResource::collection($ads);
     }
@@ -52,12 +51,10 @@ class AdController extends Controller
      */
     public function ads_by_country($name)
     {
-        //get tasks that belong to a certain category
-        $address = address::where('country',  $name)->first();
+        //get ads that belong to a certain country
+        $addresses = address::where('country',  $name)->get();
+        $ads = $addresses->load('ad');
 
-        $ads = $address->ads->paginate(5);;
-
-        //return collection of tasks as a resource
         return AdResource::collection($ads);
     }
 
@@ -70,12 +67,8 @@ class AdController extends Controller
      */
     public function ads_by_city($name)
     {
-        //get tasks that belong to a certain category
-        $address = address::where('city',  $name)->first();
-
-        $ads = $address->ads->paginate(5);;
-
-        //return collection of tasks as a resource
+        $addresses = address::where('city',  $name)->get();
+        $ads = $addresses->load('ad');
         return AdResource::collection($ads);
     }
 
