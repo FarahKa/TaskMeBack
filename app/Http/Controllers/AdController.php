@@ -18,8 +18,14 @@ class AdController extends Controller
      */
     public function index()
     {
-        //get all ads, paginated
-        $ads = Ad::paginate(5);
+        $user = auth()->user();
+        if($user->client){
+            $ads=Ad::where('client_id', $user->id)->get();
+        } elseif ($user->worker){
+            $ads=Ad::where('country', $user->country)->get();
+        } else {
+            $ads = Ad::paginate(5);
+        }
         return AdResource::collection($ads);
     }
 

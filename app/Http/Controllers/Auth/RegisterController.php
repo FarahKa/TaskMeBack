@@ -100,10 +100,13 @@ class RegisterController extends Controller
             $worker->verified= false;
             $worker->phone_number=$data['phone_number'];
             $worker->rating=2.5;
-            foreach($data['skills'] as $skill){
-                $category=Category::firstWhere('name', $skill );
-                $worker->categories()->create($category);
+            if($data["skills"]){
+                foreach($data['skills'] as $skill){
+                    $categoryModels[] = Category::firstWhere('name', $skill );
+                }
+                $worker->categories()->createMany($categoryModels);
             }
+
             /*
             $worker = Worker::create([
                 'user_id' => $user->id,

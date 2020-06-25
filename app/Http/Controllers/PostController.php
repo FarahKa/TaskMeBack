@@ -26,8 +26,15 @@ class PostController extends Controller
      */
     public function index()
     {
-        //get all tasks, paginated
-        $posts = Post::paginate(5);
+
+        $user = auth()->user();
+        if($user->client){
+            $posts=Post::where('client_id', $user->id)->get();
+        } elseif ($user->worker){
+            $posts=Post::whereIn('category', $user->skills)->where('country', $user->country)->get();
+        } else {
+            $posts = Post::paginate(5);
+        }
         //return collection of tasks as a resource
         return PostResource::collection($posts);
     }
