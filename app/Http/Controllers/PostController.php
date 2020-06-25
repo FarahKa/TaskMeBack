@@ -73,21 +73,6 @@ class PostController extends Controller
     {
         $user=User::where('id', $id)->first();
 
-        /*var_dump($user->worker); var_dump($user->client);
-        var_dump($user);die();
-
-        if($worker= Worker::firstWhere('user_id', $id)){
-
-            $posts = $worker->posts;
-            var_dump($posts);
-        } else if ($client= Client::firstWhere('user_id', $id)){
-            $posts = $client->posts;
-        } else {
-         die("problem here");
-            $posts=[];
-        }
-
-        */
         if($user->client)
         {
             if($user->client->posts) {
@@ -99,7 +84,6 @@ class PostController extends Controller
         }
         else if ($user->worker) {
             if($user->worker->posts) {
-                var_dump($user->worker->posts);
                 $posts = $user->worker->posts;
             } else {
                 $posts=[];

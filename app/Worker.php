@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Worker extends Model
 {
 
+    protected $primaryKey = 'user_id';
     /**
      * The attributes that are mass assignable.
      *
@@ -26,7 +27,7 @@ class Worker extends Model
      */
     public function posts()
     {
-        return $this->hasMany('App\Post', 'user_id', 'worker_id');
+        return $this->hasMany('App\Post', 'worker_id', 'user_id');
     }
 
     /**
