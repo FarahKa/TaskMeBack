@@ -105,7 +105,7 @@ class RegisterController extends Controller
             if($data['skills']){
                 foreach($data['skills'] as $skill){
                     $category=Category::firstWhere('name', $skill );
-                    $worker->categories()->attach($category->id);
+                    $category->workers()->attach($worker);
                 }
             }
 

@@ -16,7 +16,8 @@ class Worker extends JsonResource
 
     public function toArray($request)
     {
-        $skills= CategoryResource::collection($this->categories);
+        $skills= $this->categories;
+        var_dump($skills);
         return[
             'user_id'=> $this->user_id,
             'cin'=> $this->cin,

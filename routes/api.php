@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-
+Route::group(['middleware' => ['web']], function () {
+    // your routes here
+});
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
