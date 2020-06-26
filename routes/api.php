@@ -14,16 +14,33 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+// Login Routes...
+//logging in: give it json with email & password, should return you the logged in user:
+Route::post('login', ['as' => 'login.post', 'uses' => 'AuthController@login']);
+Route::post('logout', ['as' => 'logout.post', 'uses' => 'AuthController@logout']);
+Route::post('logout', ['as' => 'logout', 'uses' => 'AuthController@logout']);
 
-Auth::routes();
+// Registration Routes...
+Route::post('register', ['as' => 'register.post', 'uses' => 'Auth\RegisterController@register']);
 
+// Password Reset Routes... NOT WORKED ON YET
+Route::get('password/reset', ['as' => 'password.reset', 'uses' => 'Auth\ForgotPasswordController@showLinkRequestForm']);
+Route::post('password/email', ['as' => 'password.email', 'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail']);
+Route::get('password/reset/{token}', ['as' => 'password.reset.token', 'uses' => 'Auth\ResetPasswordController@showResetForm']);
+Route::post('password/reset', ['as' => 'password.reset.post', 'uses' => 'Auth\ResetPasswordController@reset']);
+//Auth::routes();
+
+//dont pay attention to this
 Route::group(['middleware' => ['web']], function () {
     // your routes here
 });
 
+//this too
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
 //adding a skill to a connected worker:
 Route::get('addskill/{name}', array('middleware' => 'cors', 'uses' =>'WorkerController@addSkill'));
 
