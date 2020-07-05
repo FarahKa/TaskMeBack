@@ -28,6 +28,7 @@ class User extends JsonResource
 
         return[
             'user_type'=>$user_type,
+            'api_token'=>$this->api_token,
             'firstname'=> $this->firstname,
             'lastname'=> $this->lastname,
             'email'=> $this->email,

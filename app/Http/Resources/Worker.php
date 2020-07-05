@@ -17,7 +17,7 @@ class Worker extends JsonResource
     public function toArray($request)
     {
         $skills= $this->categories;
-        var_dump($skills);
+        //var_dump($skills);
         return[
             'user_id'=> $this->user_id,
             'cin'=> $this->cin,
