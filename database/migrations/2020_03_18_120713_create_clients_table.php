@@ -19,6 +19,7 @@ class CreateClientsTable extends Migration
             $table->string('cin');
             $table->integer('phone_number');
             $table->decimal('rating')->default(2.5);
+
             $table->timestamps();
         });
     }

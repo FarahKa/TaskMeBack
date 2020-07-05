@@ -10,5 +10,7 @@ $factory->define(Model::class, function (Faker $faker) {
         'cin' => $faker->randomNumber(8),
         'phone_number' => $faker->randomNumber(8),
         'verified' => $faker->boolean(10),
+        'rating' => 2.5,
+
     ];
 });
