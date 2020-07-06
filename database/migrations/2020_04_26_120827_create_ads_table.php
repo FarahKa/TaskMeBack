@@ -28,6 +28,8 @@ class CreateAdsTable extends Migration
             $table->timestamp('date')->nullable();
             $table->text('description');
 
+            $table->double('price')->default(0);
+
             $table->unsignedBigInteger('address_id');
             $table->foreign('address_id')->references('id')->on('addresses');
 

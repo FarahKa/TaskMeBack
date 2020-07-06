@@ -27,6 +27,8 @@ class CreatePostsTable extends Migration
             $table->unsignedBigInteger('worker_id')->nullable();
             $table->foreign('worker_id')->references('user_id')->on('workers');
 
+            $table->double('price')->default(0);
+
             $table->timestamps();
             $table->timestamp('date')->nullable();
             $table->text('description');
