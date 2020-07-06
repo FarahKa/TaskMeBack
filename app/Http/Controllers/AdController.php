@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Ad;
+use App\Client;
 use App\User;
 use App\Http\Resources\Ad as AdResource;
 use App\Address;
@@ -18,14 +19,16 @@ class AdController extends Controller
      */
     public function index()
     {
-        $user = auth()->user();
+        /*$user = auth()->user();
         if($user->client){
             $ads=Ad::where('client_id', $user->id)->get();
         } elseif ($user->worker){
             $ads=Ad::where('country', $user->country)->get();
         } else {
             $ads = Ad::paginate(5);
-        }
+        }*/
+
+        $ads = Ad::paginate(5);
         return AdResource::collection($ads);
     }
 
@@ -93,6 +96,7 @@ class AdController extends Controller
         $ad->date=$request->input('date');
         $ad->description = $request->input('description');
         $ad->state = false;
+        $ad->price = $request->input('price');
         $address=$request->isMethod('put') ? $ad->address : new Address;
         $address->country= $request->input('country');
         $address->city= $request->input('city');

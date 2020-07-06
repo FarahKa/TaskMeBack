@@ -34,6 +34,6 @@ class Client extends Model
      */
     public function ads()
     {
-        return $this->hasMany('App\Ad', 'worker_id', 'user_id');
+        return $this->hasMany('App\Ad', 'client_id', 'user_id');
     }
 }
