@@ -54,6 +54,29 @@ class AdController extends Controller
         }
         return AdResource::collection($ads);
     }
+
+    public function ads_user_current($id)
+    {
+        $user=User::where('id', $id)->first();
+
+        if($user->client)
+        {
+            if($user->client->ads) {
+                $ads = Ad::where('client_id', "=", $id)->where("state", "=", 0)->get();
+            }
+            else{
+                $ads=[];
+            }
+        }
+        else if ($user->worker) {
+            if($user->worker->ads) {
+                $ads = Ad::where('worker_id', "=", $id)->where("state", "=", 0)->get();
+            } else {
+                $Ads=[];
+            }
+        }
+        return AdResource::collection($ads);
+    }
     //ads by country
     /**
      * Getting the ads of a country.

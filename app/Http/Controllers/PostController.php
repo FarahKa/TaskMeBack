@@ -98,6 +98,29 @@ class PostController extends Controller
         }
         return PostResource::collection($posts);
     }
+
+    public function posts_user_current($id)
+    {
+        $user=User::where('id', $id)->first();
+
+        if($user->client)
+        {
+            if($user->client->posts) {
+                $posts = Post::where('client_id', "=", $id)->where("state", "=", 0)->get();
+            }
+            else{
+                $posts=[];
+            }
+        }
+        else if ($user->worker) {
+            if($user->worker->posts) {
+                $posts = Post::where('worker_id', "=", $id)->where("state", "=", 0)->get();
+            } else {
+                $posts=[];
+            }
+        }
+        return PostResource::collection($posts);
+    }
     //post by country
     /**
      * Getting the posts of a country.
