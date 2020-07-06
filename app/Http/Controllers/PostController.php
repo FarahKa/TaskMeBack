@@ -165,7 +165,7 @@ class PostController extends Controller
     public function editPostState(Request $request){
         $postId = $request->input('id');
         $state = $request->input('state');
-        DB::update('update posts set state = ?',[$state]);
+        DB::update('update posts set state = ? where id = ?',[$state, $postId]);
         $post = Post::find($postId);
         return new PostResource($post);
     }
@@ -178,7 +178,7 @@ class PostController extends Controller
     public function editPostWorker(Request $request){
         $postId = $request->input('id');
         $workerId = $request->input('worker_id');
-        DB::update('update posts set worker_id = ?, worker_found = ?',[$workerId, true]);
+        DB::update('update posts set worker_id = ?, worker_found = ? where id = ?',[$workerId, true, $postId]);
         $post = Post::find($postId);
         return new PostResource($post);
     }

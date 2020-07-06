@@ -73,4 +73,21 @@ class WorkerController extends Controller
 
         }
     }
+
+    public function addRating(Request $request){
+        $userId = $request->input("id");
+        $note = $request->input("rating");
+        $user= User::find($userId);
+        if($user->client){
+            $oldRating = $user->client->rating;
+            $newRating= ($oldRating + $note) /2;
+            DB::update('update clients set rating = ? where user_id = ?',[$newRating, $userId]);
+        } else {
+            $oldRating = $user->worker->rating;
+            $newRating= ($oldRating + $note) /2;
+            DB::update('update workers set rating = ? where user_id = ?',[$newRating, $userId]);
+        }
+
+        return new UserResource($user);
+    }
 }

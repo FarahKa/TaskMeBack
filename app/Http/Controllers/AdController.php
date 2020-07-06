@@ -122,7 +122,7 @@ class AdController extends Controller
     public function editAdState(Request $request){
         $adId = $request->input('id');
         $state = $request->input('state');
-        DB::update('update ads set state = ?',[$state]);
+        DB::update('update ads set state = ? where id = ?',[$state, $adId]);
         $ad = Ad::find($adId);
         return new AdResource($ad);
     }
@@ -135,7 +135,7 @@ class AdController extends Controller
     public function editAdWorker(Request $request){
         $adId = $request->input('id');
         $workerId = $request->input('worker_id');
-        DB::update('update ads set worker_id = ?, worker_found = ?',[$workerId, true]);
+        DB::update('update ads set worker_id = ?, worker_found = ? where id = ?',[$workerId, true, $adId]);
         $ad = Ad::find($adId);
         return new AdResource($ad);
     }
