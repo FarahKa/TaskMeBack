@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+Route::post('editAdState', array('middleware' => 'cors', 'uses' =>'AdController@editAdState'));//takes "id" (ad's id) and "state"
+Route::post('editAdWorker', array('middleware' => 'cors', 'uses' =>'AdController@editAdWorker'));//"takes "id" and "worker_id"
+
+Route::post('editPostState', array('middleware' => 'cors', 'uses' =>'PostController@editPostState'));// "id" + "state"
+Route::post('editPostWorker', array('middleware' => 'cors', 'uses' =>'PostController@editPostWorker'));//"id" + "worker_id"
+
 // Login Routes...
 //logging in: give it json with email & password, should return you the logged in user:
 Route::post('login', ['as' => 'login.post', 'uses' => 'AuthController@login']);

@@ -156,6 +156,32 @@ class PostController extends Controller
         }
 
     }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return PostResource
+     */
+    public function editPostState(Request $request){
+        $postId = $request->input('id');
+        $state = $request->input('state');
+        DB::update('update posts set state = ?',[$state]);
+        $post = Post::find($postId);
+        return new PostResource($post);
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return PostResource
+     */
+    public function editPostWorker(Request $request){
+        $postId = $request->input('id');
+        $workerId = $request->input('worker_id');
+        DB::update('update posts set worker_id = ?, worker_found = ?',[$workerId, true]);
+        $post = Post::find($postId);
+        return new PostResource($post);
+    }
 
     /**
      * Display the specified resource.

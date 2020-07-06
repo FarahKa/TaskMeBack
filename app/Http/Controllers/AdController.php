@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Ad;
 use App\Client;
+use App\Http\Resources\Post as PostResource;
+use App\Post;
 use App\User;
 use App\Http\Resources\Ad as AdResource;
 use App\Address;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\DB;
 
 class AdController extends Controller
 {
@@ -109,6 +112,32 @@ class AdController extends Controller
             return new AdResource($ad);
         }
 
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return AdResource
+     */
+    public function editAdState(Request $request){
+        $adId = $request->input('id');
+        $state = $request->input('state');
+        DB::update('update ads set state = ?',[$state]);
+        $ad = Ad::find($adId);
+        return new AdResource($ad);
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return AdResource
+     */
+    public function editAdWorker(Request $request){
+        $adId = $request->input('id');
+        $workerId = $request->input('worker_id');
+        DB::update('update ads set worker_id = ?, worker_found = ?',[$workerId, true]);
+        $ad = Ad::find($adId);
+        return new AdResource($ad);
     }
 
     /**
