@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Category;
 use App\Client;
+use App\Http\Controllers\AuthController;
 use App\User;
 use App\Http\Controllers\Controller;
 use App\Worker;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -63,6 +66,33 @@ class RegisterController extends Controller
         ]);
     }
 
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return UserResource
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        //event(new Registered($user = $this->create($request->all())));
+        event(new Registered($user = $this->create($request)));
+
+        if (Auth::attempt(['email' => $request['email'], 'password' => $request['password']])) {
+            $userId = Auth::id();
+            $user=User::find($userId);
+            return new UserResource($user);
+        }
+        return response('Couldnt log in', 401)
+            ->header('Content-Type', 'text/plain');
+
+        //$this->guard()->login($user);
+        //return $this->registered($request, $user)
+        //                ?: redirect($this->redirectPath());
+        /*return $this->registered($request, $user)
+                        ?: new UserResource($user);*/
+        //return new UserResource($user);
+    }
 
     /**
      * Create a new user instance after a valid registration.
