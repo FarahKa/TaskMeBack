@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+Route::post('addRating', array('middleware' => 'cors', 'uses' =>'WorkerController@addRating'));//takes "id" (user id) and "rating"
+
 Route::post('editAdState', array('middleware' => 'cors', 'uses' =>'AdController@editAdState'));//takes "id" (ad's id) and "state"
 Route::post('editAdWorker', array('middleware' => 'cors', 'uses' =>'AdController@editAdWorker'));//"takes "id" and "worker_id"
 

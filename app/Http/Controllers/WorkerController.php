@@ -87,7 +87,7 @@ class WorkerController extends Controller
             $newRating= ($oldRating + $note) /2;
             DB::update('update workers set rating = ? where user_id = ?',[$newRating, $userId]);
         }
-
+        $user = User::find($userId);
         return new UserResource($user);
     }
 }
