@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+Route::get('posts_worker_city_skill/{id}', array('middleware' => 'cors', 'uses' =>'PostController@posts_worker_city_skill'));
+
 
 Route::post('modifyUser', array('middleware' => 'cors', 'uses' =>'WorkerController@modifyUser'));
 
