@@ -66,7 +66,9 @@ class PostController extends Controller
         $task = Task::where('subject',  $name)->first();
 
         $posts = $task->posts;
-
+        $posts= $posts->sortByDesc(function($post) {
+            return $post->date;
+        });
         //return collection of tasks as a resource
         return PostResource::collection($posts);
     }
@@ -96,6 +98,9 @@ class PostController extends Controller
                 $posts=[];
             }
         }
+        $posts= $posts->sortByDesc(function($post) {
+            return $post->date;
+        });
         return PostResource::collection($posts);
     }
 
@@ -119,6 +124,9 @@ class PostController extends Controller
                 $posts=[];
             }
         }
+        $posts= $posts->sortByDesc(function($post) {
+            return $post->date;
+        });
         return PostResource::collection($posts);
     }
     //post by country
@@ -133,6 +141,9 @@ class PostController extends Controller
 
         $address = address::where('country',  $name)->get();
         $posts = $address->load('post');
+        $posts= $posts->sortByDesc(function($post) {
+            return $post->date;
+        });
         return PostResource::collection($posts);
     }
 
@@ -147,6 +158,9 @@ class PostController extends Controller
     {
         $address = address::where('city',  $name)->get();
         $posts = $address->load('post');
+        $posts= $posts->sortByDesc(function($post) {
+            return $post->date;
+        });
         return PostResource::collection($posts);
     }
 

@@ -32,6 +32,9 @@ class AdController extends Controller
         }*/
 
         $ads = Ad::paginate(5);
+        $ads= $ads->sortByDesc(function($ad) {
+            return $ad->date;
+        });
         return AdResource::collection($ads);
     }
 
@@ -52,6 +55,9 @@ class AdController extends Controller
         else{
             $ads=$user->worker->ads;
         }
+        $ads= $ads->sortByDesc(function($ad) {
+            return $ad->date;
+        });
         return AdResource::collection($ads);
     }
 
@@ -72,9 +78,12 @@ class AdController extends Controller
             if($user->worker->ads) {
                 $ads = Ad::where('worker_id', "=", $id)->where("state", "=", 0)->get();
             } else {
-                $Ads=[];
+                $ads=[];
             }
         }
+        $ads= $ads->sortByDesc(function($ad) {
+            return $ad->date;
+        });
         return AdResource::collection($ads);
     }
     //ads by country
@@ -89,7 +98,9 @@ class AdController extends Controller
         //get ads that belong to a certain country
         $addresses = address::where('country',  $name)->get();
         $ads = $addresses->load('ad');
-
+        $ads= $ads->sortByDesc(function($ad) {
+            return $ad->date;
+        });
         return AdResource::collection($ads);
     }
 
@@ -104,6 +115,9 @@ class AdController extends Controller
     {
         $addresses = address::where('city',  $name)->get();
         $ads = $addresses->load('ad');
+        $ads= $ads->sortByDesc(function($ad) {
+            return $ad->date;
+        });
         return AdResource::collection($ads);
     }
 
