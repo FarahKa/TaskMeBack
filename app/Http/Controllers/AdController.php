@@ -115,7 +115,7 @@ class AdController extends Controller
     {
         //$ads= Ad::where($this->address->city, "")
 
-        $ads = DB::table('ads')->whereExists((
+        $ads = Ad::whereExists((
             function($query) use ($name){
             $query->select(DB::raw(1))
                 ->from('addresses')
@@ -125,13 +125,9 @@ class AdController extends Controller
         $ads= $ads->sortByDesc(function($ad) {
             return $ad->date;
         });
-        return($ads);
-        //$ads = Ad::where(Address::where('city', $name)->where()->exists())->get();
-        /*where('city', '=', $name)
-            ->where("worker_found", "=", false)->get();*/
-        $ads= $ads->sortByDesc(function($ad) {
-            return $ad->date;
-        });
+        //$Topic= new Ad();
+        //$Topic::hydrate((array)$ads);
+        //return($ads);
         return AdResource::collection($ads);
     }
 
