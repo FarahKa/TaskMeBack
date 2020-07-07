@@ -114,7 +114,8 @@ class AdController extends Controller
     public function ads_by_city($name)
     {
         $addresses = address::where('city',  $name)->get();
-        $ads = Ad::join('addresses', "ads.address_id", '=', 'addresses.id')->where('city', '=', $name)->get();
+        $ads = Ad::join('addresses', "ads.address_id", '=', 'addresses.id')->where('city', '=', $name)
+            ->where("worker_found", "=", false)->get();
         $ads= $ads->sortByDesc(function($ad) {
             return $ad->date;
         });
