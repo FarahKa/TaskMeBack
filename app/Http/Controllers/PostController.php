@@ -161,6 +161,7 @@ class PostController extends Controller
         // USED NAME post_id FOR FORM PLZ
         $post = $request->isMethod('put') ? Post::findOrFail($request->post_id) : new Post;
         $post->id = $request->input('post_id');
+        $post->title = $request->input('title');
         $post->task_id = $request->input('task_id');
         $post->client_id = $request->input('client_id');
         $post->date=$request->input('date');

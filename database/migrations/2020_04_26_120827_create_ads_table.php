@@ -16,6 +16,8 @@ class CreateAdsTable extends Migration
         Schema::create('ads', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->string('title')->default('');
+
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')->references('user_id')->on('clients');
 

@@ -118,6 +118,7 @@ class AdController extends Controller
         // USED NAME ad_id FOR FORM PLZ
         $ad = $request->isMethod('put') ? Ad::findOrFail($request->ad_id) : new Ad;
         $ad->id = $request->input('ad_id');
+        $ad->title = $request->input('title');
         $ad->client_id = $request->input('client_id');
         $ad->date=$request->input('date');
         $ad->description = $request->input('description');
