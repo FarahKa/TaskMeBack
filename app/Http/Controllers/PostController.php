@@ -196,6 +196,7 @@ class PostController extends Controller
         $post->description = $request->input('description');
         $post->price = $request->input('price');
         $address=$request->isMethod('put') ? $post->address : new Address;
+        $address->id=$post->id;
         $address->country= $request->input('country');
         $address->city= $request->input('city');
         $address->postal_code= $request->input('postal_code');

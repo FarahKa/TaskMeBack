@@ -113,8 +113,8 @@ class AdController extends Controller
      */
     public function ads_by_city($name)
     {
-        $addresses = address::where('city',  $name)->get();
-        $ads = Ad::join('addresses', "ads.address_id", '=', 'addresses.id')->where('city', '=', $name)
+
+        $ads = Ad::leftJoin('addresses', "ads.address_id", '=', 'addresses.id')->where('city', '=', $name)
             ->where("worker_found", "=", false)->get();
         $ads= $ads->sortByDesc(function($ad) {
             return $ad->date;
@@ -140,6 +140,8 @@ class AdController extends Controller
         $ad->state = false;
         $ad->price = $request->input('price');
         $address=$request->isMethod('put') ? $ad->address : new Address;
+
+        $address->id=$ad->id;
         $address->country= $request->input('country');
         $address->city= $request->input('city');
         $address->postal_code= $request->input('postal_code');
