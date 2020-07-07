@@ -113,9 +113,22 @@ class AdController extends Controller
      */
     public function ads_by_city($name)
     {
+        //$ads= Ad::where($this->address->city, "")
 
-        $ads = Ad::leftJoin('addresses', "ads.address_id", '=', 'addresses.id')->where('city', '=', $name)
-            ->where("worker_found", "=", false)->get();
+        $ads = DB::table('ads')->whereExists((
+            function($query) use ($name){
+            $query->select(DB::raw(1))
+                ->from('addresses')
+                ->whereRaw("addresses.id = ads.address_id")
+                ->where("addresses.city", "=", $name );
+        }))->get();
+        $ads= $ads->sortByDesc(function($ad) {
+            return $ad->date;
+        });
+        return($ads);
+        //$ads = Ad::where(Address::where('city', $name)->where()->exists())->get();
+        /*where('city', '=', $name)
+            ->where("worker_found", "=", false)->get();*/
         $ads= $ads->sortByDesc(function($ad) {
             return $ad->date;
         });

@@ -15,8 +15,7 @@ class Ad extends JsonResource
     public function toArray($request)
     {
         $worker= \App\Worker::find($this->worker_id);
-        $address=$this->address;
-        //$address= \App\Address::find($this->address_id);
+        $address= \App\Address::find($this->address_id);
         if($worker){
             $worker_nb = $worker->phone_number;
             $worker_id = $worker->user_id;
