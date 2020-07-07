@@ -121,7 +121,7 @@ class AdController extends Controller
                 ->from('addresses')
                 ->whereRaw("addresses.id = ads.address_id")
                 ->where("addresses.city", "=", $name );
-        }))->get();
+        }))->where("worker_found", "=", false)->get();
         $ads= $ads->sortByDesc(function($ad) {
             return $ad->date;
         });
