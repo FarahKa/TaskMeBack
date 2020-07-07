@@ -13,6 +13,24 @@ use Illuminate\Http\Request;
 
 class WorkerController extends Controller
 {
+
+
+    public function modifyUser(Request $request){
+        $user= User::find($request->input('id'));
+        $user->country = $request->input('country');
+        $user->city = $request->input('city');
+        $user->gender = $request->input('gender');
+        if($user->client){
+            $user->client->phone_number = $request->input('phone_number');
+        }
+        if($user->worker){
+            $user->worker->phone_number = $request->input('phone_number');
+        }
+        $user->save();
+
+        return new UserResource($user);
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -53,9 +71,9 @@ class WorkerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        // not yet
+    public function getUser($id){
+        $user= User::find($id);
+        return new UserResource($user);
     }
 
 
@@ -70,7 +88,6 @@ class WorkerController extends Controller
         $user = User::findOrFail($id);
         if($user->delete()){
             return new UserResource($user);
-
         }
     }
 
@@ -90,4 +107,6 @@ class WorkerController extends Controller
         $user = User::find($userId);
         return new UserResource($user);
     }
+
+
 }

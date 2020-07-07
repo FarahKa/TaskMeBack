@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+Route::post('modifyUser', array('middleware' => 'cors', 'uses' =>'WorkerController@modifyUser'));
+
+Route::get('getUser/{id}', array('middleware' => 'cors', 'uses' =>'WorkerController@getUser'));
+
 Route::get('posts_user_current/{id}', array('middleware' => 'cors', 'uses' =>'PostController@posts_user_current'));
 Route::get('ads_user_current/{id}', array('middleware' => 'cors', 'uses' =>'AdController@ads_user_current'));
 

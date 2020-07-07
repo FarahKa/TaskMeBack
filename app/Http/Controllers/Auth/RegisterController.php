@@ -112,6 +112,7 @@ class RegisterController extends Controller
         $user->photo_link=$data['photo_link'];
         $user->gender=$data['gender'];
         $user->country=$data['country'];
+        $user->city=$data['city'];
         $user->api_token=Str::random(80);
         $user->save();
 

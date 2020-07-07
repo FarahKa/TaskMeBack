@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Client as ClientResource;
 use App\Http\Resources\Worker as WorkerResource;
+use App\Http\Resources\Address as AddressResource;
 class User extends JsonResource
 {
     /**
@@ -26,6 +27,8 @@ class User extends JsonResource
             $child=new WorkerResource($this->worker);
         }
 
+
+
         return[
             'user_type'=>$user_type,
             'api_token'=>$this->api_token,
@@ -34,6 +37,8 @@ class User extends JsonResource
             'email'=> $this->email,
             'birth_date'=>$this->birth_date,
             'photo_link'=>$this->photo_link,
+            'country'=> $this->country,
+            'city' => $this->city,
             'email_verified_at' => $this->email_verified_at,
             'info'=>$child,
 
