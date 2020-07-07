@@ -22,9 +22,11 @@ class WorkerController extends Controller
         $user->gender = $request->input('gender');
         if($user->client){
             $user->client->phone_number = $request->input('phone_number');
+            $user->client->save();
         }
         if($user->worker){
             $user->worker->phone_number = $request->input('phone_number');
+            $user->worker->save();
         }
         $user->save();
 

@@ -147,6 +147,13 @@ class PostController extends Controller
         return PostResource::collection($posts);
     }
 
+    public function posts_worker_city_skill($id){
+        $worker= Worker::find($id);
+        $workerCity = $worker->address->city;
+        $posts = Post::join('posts', "posts.address_id", '=', 'addresses.id')->where('city', '=', $workerCity)
+            ->where('category', '=', '')->get();
+}
+
     //post by city
     /**
      * Getting the posts of a city.
