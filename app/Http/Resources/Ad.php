@@ -17,7 +17,7 @@ class Ad extends JsonResource
         $worker= \App\Worker::find($this->worker_id);
         $address= \App\Address::find($this->address_id);
         if($worker){
-            $worker_nb = $worker->number;
+            $worker_nb = $worker->phone_number;
             $worker_id = $worker->user_id;
             $worker_name = $worker->user->firstname . $worker->user->lastname;
             $worker_rating = $worker->rating;

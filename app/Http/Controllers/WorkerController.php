@@ -108,5 +108,10 @@ class WorkerController extends Controller
         return new UserResource($user);
     }
 
+    public function getPossibleAds ($id){
+        $worker = User::find($id);
+
+    }
+
 
 }
