@@ -164,6 +164,12 @@ class AdController extends Controller
         return new AdResource($ad);
     }
 
+
+    public function deleteAdWorker($id){
+        DB::update('update ads set worker_id = ?, worker_found = ? where id = ?',[null, false, $id]);
+        $ad = Ad::find($id);
+        return new AdResource($ad);
+    }
     /**
      * Display the specified resource.
      *

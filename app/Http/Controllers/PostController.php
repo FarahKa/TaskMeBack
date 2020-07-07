@@ -207,6 +207,12 @@ class PostController extends Controller
         return new PostResource($post);
     }
 
+    public function deletePostWorker($id){
+        DB::update('update posts set worker_id = ?, worker_found = ? where id = ?',[null, false, $id]);
+        $post = Post::find($id);
+        return new PostResource($post);
+    }
+
     /**
      * Display the specified resource.
      *
