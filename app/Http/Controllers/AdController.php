@@ -96,8 +96,8 @@ class AdController extends Controller
     public function ads_by_country($name)
     {
         //get ads that belong to a certain country
-        $addresses = address::where('country',  $name)->get();
-        $ads = $addresses->load('ad');
+       // $addresses = address::where('country',  $name)->get();
+        $ads = Ad::join('addresses', "ads.address_id", '=', 'addresses.id')->where('country', '=', $name)->get();
         $ads= $ads->sortByDesc(function($ad) {
             return $ad->date;
         });
@@ -114,7 +114,7 @@ class AdController extends Controller
     public function ads_by_city($name)
     {
         $addresses = address::where('city',  $name)->get();
-        $ads = $addresses->load('ad');
+        $ads = Ad::join('addresses', "ads.address_id", '=', 'addresses.id')->where('city', '=', $name)->get();
         $ads= $ads->sortByDesc(function($ad) {
             return $ad->date;
         });

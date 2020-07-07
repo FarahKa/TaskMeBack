@@ -139,8 +139,8 @@ class PostController extends Controller
     public function posts_by_country($name)
     {
 
-        $address = address::where('country',  $name)->get();
-        $posts = $address->load('post');
+        //$address = address::where('country',  $name)->get();
+        $posts = Post::join('posts', "posts.address_id", '=', 'addresses.id')->where('country', '=', $name)->get();
         $posts= $posts->sortByDesc(function($post) {
             return $post->date;
         });
@@ -157,7 +157,7 @@ class PostController extends Controller
     public function posts_by_city($name)
     {
         $address = address::where('city',  $name)->get();
-        $posts = $address->load('post');
+        $posts = Post::join('posts', "posts.address_id", '=', 'addresses.id')->where('city', '=', $name)->get();
         $posts= $posts->sortByDesc(function($post) {
             return $post->date;
         });
